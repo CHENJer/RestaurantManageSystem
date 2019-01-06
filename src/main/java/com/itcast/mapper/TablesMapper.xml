@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itcast.mapper.TablesMapper" >
+  <resultMap id="BaseResultMap" type="com.itcast.pojo.Tables" >
+    <id column="t_id" property="tId" jdbcType="VARCHAR" />
+    <result column="t_num" property="tNum" jdbcType="INTEGER" />
+    <result column="t_state" property="tState" jdbcType="BIT" />
+    <result column="t_comm" property="tComm" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    t_id, t_num, t_state, t_comm
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.itcast.pojo.TablesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tables
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tables
+    where t_id = #{tId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tables
+    where t_id = #{tId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.itcast.pojo.TablesExample" >
+    delete from tables
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.itcast.pojo.Tables" >
+    insert into tables (t_id, t_num, t_state, 
+      t_comm)
+    values (#{tId,jdbcType=VARCHAR}, #{tNum,jdbcType=INTEGER}, #{tState,jdbcType=BIT}, 
+      #{tComm,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.itcast.pojo.Tables" >
+    insert into tables
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tId != null" >
+        t_id,
+      </if>
+      <if test="tNum != null" >
+        t_num,
+      </if>
+      <if test="tState != null" >
+        t_state,
+      </if>
+      <if test="tComm != null" >
+        t_comm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tId != null" >
+        #{tId,jdbcType=VARCHAR},
+      </if>
+      <if test="tNum != null" >
+        #{tNum,jdbcType=INTEGER},
+      </if>
+      <if test="tState != null" >
+        #{tState,jdbcType=BIT},
+      </if>
+      <if test="tComm != null" >
+        #{tComm,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.itcast.pojo.TablesExample" resultType="java.lang.Integer" >
+    select count(*) from tables
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tables
+    <set >
+      <if test="record.tId != null" >
+        t_id = #{record.tId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tNum != null" >
+        t_num = #{record.tNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.tState != null" >
+        t_state = #{record.tState,jdbcType=BIT},
+      </if>
+      <if test="record.tComm != null" >
+        t_comm = #{record.tComm,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tables
+    set t_id = #{record.tId,jdbcType=VARCHAR},
+      t_num = #{record.tNum,jdbcType=INTEGER},
+      t_state = #{record.tState,jdbcType=BIT},
+      t_comm = #{record.tComm,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.itcast.pojo.Tables" >
+    update tables
+    <set >
+      <if test="tNum != null" >
+        t_num = #{tNum,jdbcType=INTEGER},
+      </if>
+      <if test="tState != null" >
+        t_state = #{tState,jdbcType=BIT},
+      </if>
+      <if test="tComm != null" >
+        t_comm = #{tComm,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where t_id = #{tId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.itcast.pojo.Tables" >
+    update tables
+    set t_num = #{tNum,jdbcType=INTEGER},
+      t_state = #{tState,jdbcType=BIT},
+      t_comm = #{tComm,jdbcType=VARCHAR}
+    where t_id = #{tId,jdbcType=VARCHAR}
+  </update>
+</mapper>
