@@ -43,10 +43,16 @@ public class test {
 		@ResponseBody
 		public String ssmandVueTest() {
 			System.out.println("跳转成功");
-			String name = "陈杰";
-			return name;
+			String foods = "{\"goods\":[{\"name\":\"aaa\",\"type\":2,\"foods\":{\"name\":\"bbb\",\"description\":\"aaa\"}},\n" +
+					"         {\"name\":\"aaa\",\"type\":2,\"foods\":{\"name\":\"bbb\",\"description\":\"aaa\"}},\n" +
+					"{\"name\":\"aaa\",\"type\":2,\"foods\":{\"name\":\"bbb\",\"description\":\"aaa\"}},\n" +
+					"{\"name\":\"aaa\",\"type\":2,\"foods\":{\"name\":\"bbb\",\"description\":\"aaa\"}},\n" +
+					"{\"name\":\"aaa\",\"type\":2,\"foods\":{\"name\":\"bbb\",\"description\":\"aaa\"}},\n" +
+					"{\"name\":\"aaa\",\"type\":2,\"foods\":{\"name\":\"bbb\",\"description\":\"aaa\"}}\n" +
+					"        ]}";
+			return foods;
 		}
-	
+
 	@Autowired
 	public UserService userService;
 	//ssm整合测试
@@ -55,8 +61,8 @@ public class test {
 		User user = userService.selectByPrimaryKey(1);
 		System.out.println("ssm整合成功\n"+user);
 		return "success";
-		
+
 	}
 
-	
+
 }

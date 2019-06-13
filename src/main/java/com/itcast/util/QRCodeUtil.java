@@ -43,7 +43,7 @@ public class QRCodeUtil {
         x.setQrcodeErrorCorrect('L');
         x.setQrcodeEncodeMode('B');//注意版本信息 N代表数字 、A代表 a-z,A-Z、B代表 其他)
         x.setQrcodeVersion(v);//版本号  1-40
-        String qrData = "http://192.168.2.196:8080/";//内容信息
+        String qrData = "http://192.168.2.196:8080/CustomerOrder";//内容信息
 
         byte[] d = qrData.getBytes("utf-8");//汉字转格式需要抛出异常
 
